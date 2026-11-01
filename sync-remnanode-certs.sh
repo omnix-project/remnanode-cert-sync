@@ -43,8 +43,8 @@ check_source_files() {
   local missing=()
   [[ -f "$dir/fullchain.pem" ]] || missing+=("fullchain.pem")
   [[ -f "$dir/privkey.pem" ]] || missing+=("privkey.pem")
-  if (("\${#missing[@]}" > 0)); then
-    die "В каталоге $dir отсутствуют файлы: \${missing[*]}"
+  if (("${#missing[@]}" > 0)); then
+    die "В каталоге $dir отсутствуют файлы: ${missing[*]}"
   fi
 }
 
@@ -89,7 +89,7 @@ load_config() {
   # Файл создаётся самим скриптом и имеет права 600.
   # shellcheck disable=SC1090
   source "$CONFIG"
-  [[ -n "\${DOMAIN:-}" ]] || die "В конфигурации не задан DOMAIN."
+  [[ -n "${DOMAIN:-}" ]] || die "В конфигурации не задан DOMAIN."
   valid_domain "$DOMAIN" || die "В конфигурации указан некорректный домен."
 }
 
@@ -156,7 +156,7 @@ sync_certs() {
 
 main() {
   require_root
-  case "\${1:-}" in
+  case "${1:-}" in
     --help|-h) usage; exit 0 ;;
     --configure) configure; exit 0 ;;
     "") ;;
