@@ -61,6 +61,7 @@ configure() {
   printf 'DOMAIN=%q\n' "$domain" > "$CONFIG"
   chown root:root "$CONFIG"
   chmod 600 "$CONFIG"
+  DOMAIN="$domain"
   log "Домен $domain сохранён в $CONFIG"
 
   read -r -p "Добавить автоматическую проверку и обновление каждые 6 часов? [y/N]: " answer || true
@@ -81,6 +82,9 @@ EOF
       log "Автоматическая проверка отключена."
       ;;
   esac
+
+  log "Настройка завершена. Выполняю первоначальную синхронизацию..."
+  sync_certs
 }
 
 load_config() {
