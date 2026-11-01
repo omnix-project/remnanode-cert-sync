@@ -26,4 +26,12 @@ fi
 bash -n "$TMP"
 install -o root -g root -m 755 "$TMP" "$TARGET"
 echo "Скрипт установлен: $TARGET"
-exec "$TARGET" --configure
+
+# При запуске через curl | sudo bash stdin занят потоком установщика.
+# Перенаправляем ввод настройки с управляющего терминала.
+if [[ -r /dev/tty ]]; then
+  exec "$TARGET" --configure </dev/tty
+else
+  echo "Установка завершена. Для настройки запустите:"
+  echo "  $TARGET --configure"
+fi
