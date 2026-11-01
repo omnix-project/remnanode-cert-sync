@@ -20,7 +20,7 @@
 На сервере RemnaNode выполните:
 
 \`\`\`bash
-curl -fsSL https://raw.githubusercontent.com/omnix-project/remnanode-cert-sync/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/omnix-project/remnanode-cert-sync/main/install.sh | sudo bash
 \`\`\`
 
 Либо скачайте \`install.sh\` и запустите от root:
