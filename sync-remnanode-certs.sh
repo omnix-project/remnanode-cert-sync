@@ -181,7 +181,7 @@ sync_certs() {
   exec 9>"$LOCK_FILE"
   flock -n 9 || { log "Другая синхронизация уже выполняется; пропускаю."; return 0; }
   tmp="$(mktemp -d "$DEST_DIR/.cert-sync.XXXXXX")"
-  trap 'rm -rf "$tmp"' RETURN
+  trap 'rm -rf "$tmp"; trap - RETURN' RETURN
   cert_new="$tmp/fullchain.pem"
   key_new="$tmp/privkey.pem"
   backup_cert="$tmp/old-fullchain.pem"
